@@ -245,6 +245,110 @@
           }
       </script>
 
+<div class="download-message" id="downloadMessage">
+  <p>Baixe nosso app para uma melhor experiência!</p>
+  <a href="https://app.jotform.com/242925180512654" target="_blank">Baixe o app</a>
+</div>
+
+<script>
+  // Função para verificar se o dispositivo é um smartphone
+  function isMobileDevice() {
+      return /Mobi|Android/i.test(navigator.userAgent);
+  }
+
+  // Se for um dispositivo móvel, exibe a mensagem
+  if (isMobileDevice()) {
+      document.getElementById('downloadMessage').style.display = 'block';
+  }
+
+  function addComment() {
+      // Obtém os valores dos campos
+      var name = document.getElementById("nameInput").value;
+      var comment = document.getElementById("commentInput").value;
+
+      // Verifica se os campos estão preenchidos
+      if (name === '' || comment === '') {
+          alert("Por favor, preencha seu nome e comentário.");
+          return;
+      }
+
+      // Cria um contêiner para o novo comentário
+      var commentDiv = document.createElement("div");
+      commentDiv.classList.add("comment");
+
+      // Cria a estrutura do comentário
+      var commentHeader = document.createElement("div");
+      commentHeader.classList.add("comment-header");
+      commentHeader.textContent = name + " disse:";
+
+      var commentBody = document.createElement("div");
+      commentBody.classList.add("comment-body");
+      commentBody.textContent = comment;
+
+      // Botão de resposta
+      var replyButton = document.createElement("button");
+      replyButton.classList.add("reply-button");
+      replyButton.textContent = "Responder";
+      replyButton.onclick = function() {
+          showReplyForm(commentDiv);
+      };
+
+      // Formulário de resposta
+      var replyForm = document.createElement("div");
+      replyForm.classList.add("reply-form");
+      replyForm.innerHTML = `
+          <input type="text" class="replyName" placeholder="Seu nome">
+          <textarea class="replyComment" placeholder="Escreva sua resposta"></textarea>
+          <button onclick="addReply(this)">Enviar Resposta</button>
+      `;
+
+      // Adiciona o cabeçalho, corpo do comentário e o botão de resposta ao contêiner do comentário
+      commentDiv.appendChild(commentHeader);
+      commentDiv.appendChild(commentBody);
+      commentDiv.appendChild(replyButton);
+      commentDiv.appendChild(replyForm);
+
+      // Adiciona o novo comentário à lista de comentários
+      document.getElementById("commentsBox").appendChild(commentDiv);
+
+      // Limpa os campos de entrada
+      document.getElementById("nameInput").value = '';
+      document.getElementById("commentInput").value = '';
+  }
+
+  function showReplyForm(commentDiv) {
+      var replyForm = commentDiv.querySelector('.reply-form');
+      replyForm.style.display = 'block'; // Mostra o formulário de resposta
+  }
+
+  function addReply(button) {
+      // Obtém os valores da resposta
+      var replyName = button.parentNode.querySelector('.replyName').value;
+      var replyComment = button.parentNode.querySelector('.replyComment').value;
+
+      // Verifica se os campos estão preenchidos
+      if (replyName === '' || replyComment === '') {
+          alert("Por favor, preencha seu nome e a resposta.");
+          return;
+      }
+
+      // Cria o contêiner da resposta
+      var replyDiv = document.createElement("div");
+      replyDiv.classList.add("reply");
+
+      // Cria o conteúdo da resposta
+      replyDiv.innerHTML = "<strong>" + replyName + " respondeu:</strong><br>" + replyComment;
+
+      // Adiciona a resposta ao contêiner do comentário
+      button.parentNode.parentNode.appendChild(replyDiv);
+
+      // Limpa os campos de entrada da resposta
+      button.parentNode.querySelector('.replyName').value = '';
+      button.parentNode.querySelector('.replyComment').value = '';
+  }
+</script>
+
+
       </article>
     </section>
 
