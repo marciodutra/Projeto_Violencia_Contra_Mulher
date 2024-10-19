@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seção de Comentários com Respostas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .comment-section {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ccc;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 5px;
+        }
+
+        .comment-form input, .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .comment-form textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        .comment-form button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .comment-form button:hover {
+            background-color: #45a049;
+        }
+
+        .comments {
+            margin-top: 20px;
+        }
+
+        .comment {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .comment-header {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .comment-body {
+            margin-top: 5px;
+        }
+
+        .reply-button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .reply-button:hover {
+            background-color: #0056b3;
+        }
+
+        .reply-form {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .reply {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            margin-left: 20px;
+            border-radius: 5px;
+        }
+    </style>
+  <meta charset="utf-8">
+  <title>CipherHelp</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="sortcut icon" href="img/heart.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Forum&family=Indie+Flower&family=Lato:wght@900&family=Montserrat:wght@100&display=swap" rel="stylesheet"></head>
+<body>
+
+  <header class="home" id="header">
+    <img class="img_banner" src="img/four_women.png" alt="Quatro mulheres abraçadas e olhando para frente">
+    <section class="banner">
+      <div class="titulo_container">
+        <h1 class="titulo_banner">Cipher<span class="titulo_help">Help</span></h1>
+        <p class="subtitulo_banner"> proteção da mulher</p>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="tool_container" id="mission">
+      <article class="tool_titles">
+        <img class="tool_img" src="img/two_women.png" alt="Duas mulheres se abraçando e olhando para frente">
+        <div class="tool_btn_titulo">
+          <h1 class="tool_titulo"> Enfrentar, por meio de um <br>
+            <span class="tool_titulo_span">mecanismo <br> seguro,</span><br>
+            a violência contra a mulher.<br><br>
+            <span class="tool_subtitulo">Essa é a nossa missão.</span>
+          </h1>
+
+          <a href="#link_services">
+            <button class="btn_tool">Deixe a sua mensagem</button>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section class="info_container" id="violencias">
+      <article class="info_texts">
+        <img class="info_img" src="img/hands3.png" alt="Mãos de mulher entrelaçadas sobre fundo cinza">
+
+        <div class="comment-section">
+          <h2>Deixe seu comentário</h2>
+
+          <!-- Formulário de Comentários -->
+          <div class="comment-form">
+              <input type="text" id="nameInput" placeholder="Seu nome">
+              <textarea id="commentInput" placeholder="Escreva seu comentário"></textarea>
+              <button onclick="addComment()">Comentar</button>
+          </div>
+
+          <!-- Lista de Comentários -->
+          <div class="comments" id="commentsBox">
+              <p><strong>Comentários:</strong></p>
+          </div>
+      </div>
+
+      <script>
+          function addComment() {
+              // Obtém os valores dos campos
+              var name = document.getElementById("nameInput").value;
+              var comment = document.getElementById("commentInput").value;
+
+              // Verifica se os campos estão preenchidos
+              if (name === '' || comment === '') {
+                  alert("Por favor, preencha seu nome e comentário.");
+                  return;
+              }
+
+              // Cria um contêiner para o novo comentário
+              var commentDiv = document.createElement("div");
+              commentDiv.classList.add("comment");
+
+              // Cria a estrutura do comentário
+              var commentHeader = document.createElement("div");
+              commentHeader.classList.add("comment-header");
+              commentHeader.textContent = name + " disse:";
+
+              var commentBody = document.createElement("div");
+              commentBody.classList.add("comment-body");
+              commentBody.textContent = comment;
+
+              // Botão de resposta
+              var replyButton = document.createElement("button");
+              replyButton.classList.add("reply-button");
+              replyButton.textContent = "Responder";
+              replyButton.onclick = function() {
+                  showReplyForm(commentDiv);
+              };
+
+              // Formulário de resposta
+              var replyForm = document.createElement("div");
+              replyForm.classList.add("reply-form");
+              replyForm.innerHTML = `
+                  <input type="text" class="replyName" placeholder="Seu nome">
+                  <textarea class="replyComment" placeholder="Escreva sua resposta"></textarea>
+                  <button onclick="addReply(this)">Enviar Resposta</button>
+              `;
+
+              // Adiciona o cabeçalho, corpo do comentário e o botão de resposta ao contêiner do comentário
+              commentDiv.appendChild(commentHeader);
+              commentDiv.appendChild(commentBody);
+              commentDiv.appendChild(replyButton);
+              commentDiv.appendChild(replyForm);
+
+              // Adiciona o novo comentário à lista de comentários
+              document.getElementById("commentsBox").appendChild(commentDiv);
+
+              // Limpa os campos de entrada
+              document.getElementById("nameInput").value = '';
+              document.getElementById("commentInput").value = '';
+          }
+
+          function showReplyForm(commentDiv) {
+              var replyForm = commentDiv.querySelector('.reply-form');
+              replyForm.style.display = 'block'; // Mostra o formulário de resposta
+          }
+
+          function addReply(button) {
+              // Obtém os valores da resposta
+              var replyName = button.parentNode.querySelector('.replyName').value;
+              var replyComment = button.parentNode.querySelector('.replyComment').value;
+
+              // Verifica se os campos estão preenchidos
+              if (replyName === '' || replyComment === '') {
+                  alert("Por favor, preencha seu nome e a resposta.");
+                  return;
+              }
+
+              // Cria o contêiner da resposta
+              var replyDiv = document.createElement("div");
+              replyDiv.classList.add("reply");
+
+              // Cria o conteúdo da resposta
+              replyDiv.innerHTML = "<strong>" + replyName + " respondeu:</strong><br>" + replyComment;
+
+              // Adiciona a resposta ao comentário correspondente
+              button.parentNode.parentNode.appendChild(replyDiv);
+
+              // Limpa o formulário de resposta
+              button.parentNode.querySelector('.replyName').value = '';
+              button.parentNode.querySelector('.replyComment').value = '';
+
+              // Oculta o formulário de resposta
+              button.parentNode.style.display = 'none';
+          }
+      </script>
+
+      </article>
+    </section>
+
+
+    <section class="services" id="link_services">
+      <iframe src="https://www.iodraw.com/pt/tool/encrypt?embed" width="100%" height="600px" style="border:0px;"></iframe>
+      <h1>Peça socorro em sigilo. Digite seu pedido de socorro e clica em encriptação e depois iniciar. Envie o texto criptografado e o link desse site para a pessoa descriptografar. Somente a pessoa para quem enviar vai conseguir ler o texto.</h1>
+    </section>
+
+    <section class="help" id="ajuda">
+      <h5 class="footer_titulo"> Redes de Apoio </h5>
+      <div class="help_links">
+          <a href="https://www.gov.br/mdh/pt-br/ondh/" target="_blank" class="footer_link">
+              <img class="footer_logo" src="./img/disque-100.png" alt="Disque Direitos Humanos - Ligue 100">
+              <h3 class="footer_legenda"> Ouvidoria Nacional de Direitos Humanos </h3>
+          </a>
+
+          <a href="https://mdh.metasix.solutions/portal/servicos/informacao?t=50&servico=234" target="_blank" class="footer_link">
+              <img class="footer_logo" src="./img/denuncie_180.jpeg" alt="Central de Atendimento à Mulher">
+              <h3 class="footer_legenda"> Central de Atendimento à Mulher </h3>
+          </a>
+
+          <a href="https://www.gov.br/mdh/pt-br/ondh/servicos/grupo-vulneravel" target="_blank" class="footer_link">
+              <img class="footer_logo" src="./img/governo.jpeg" alt="Logo Governo Brasileiro">
+              <h3 class="footer_legenda"> Serviços de Ajuda</h3>
+          </a>
+
+          <a href="https://www.gov.br/mdh/pt-br" target="_blank" class="footer_link">
+              <img class="footer_logo" src="./img/mulheres_logo.png" alt="Logo Mulheres em verde e amarelo">
+              <h3 class="footer_legenda"> Ministério da Mulher, da Família e dos Direitos Humanos</h3>
+          </a>
+
+          <a href="https://www.delegaciaonline.rs.gov.br/dol/index.html#!/delegaciadamulher/perguntaseduvidasfrequentesmulher" target="_blank" class="footer_link">
+            <img class="footer_logo" src="./img/policiapb.png" alt="Logo Polícia CIvil da Paraíba">
+            <h3 class="footer_legenda"> Polícia Civil - RS</h3>
+          </a>
+
+          <a href="https://www.delegaciaonline.rs.gov.br/dol/#!/index/main" target="_blank" class="footer_link">
+            <img class="footer_logo" src="./img/policiapb.png" alt="Brasão da Polícia Civil da Paraíba">
+            <h3 class="footer_legenda"> Delegacia Online - RS</h3>
+          </a>
+      </div>
+    </section>
+
+    <nav class="navbar">
+      <ul>
+        <li>
+            <a href="#header" > Home 👩🏽</a>
+        </li>
+
+        <li>
+            <p class="tracinhos"> | </p>
+        </li>
+
+         <li>
+            <a href="#mission" > Nossa Missão 👩🏼‍🦰</a>
+         </li>
+
+         <li>
+             <p class="tracinhos"> | </p>
+         </li>
+
+        <li>
+             <a href="#violencias" > Deixe sua mensagem 👩🏿‍🦳</a>
+         </li>
+
+         <li>
+             <p class="tracinhos"> | </p>
+         </li>
+
+         <li>
+             <a href="#link_services" > Faça seu pedido de socorro 👱🏼‍♀️</a>
+        </li>
+
+        <li>
+          <p class="tracinhos"> | </p>
+        </li>
+
+        <li>
+          <p class="tracinhos"> | </p>
+        </li>
+
+        <li>
+          <a href="#ajuda" > Ajuda 👵🏾</a>
+        </li>
+      </ul>
+    </nav>
+
+    <footer class="copyright">
+      <a href="https://www.linkedin.com/in/patriciabarnabe/" target="_blank">
+        <p class="copy_texto"> Copyright© Márcio Dutra 2024 </p>
+      </a>
+    </footer>
+
+  </main>
+
+  <script src="index.js" type="module"></script>
+</body>
+</html>
