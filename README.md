@@ -1,0 +1,2 @@
+Esse site é para as mulheres que sofrem algum tipo de violência doméstica. Nele elas podem fazer pedido de socorro de forma segura. O site proporciona um sistema onde você digita a mensagem de socorro, clica em criptografar e envia a mensagem criptografada para a outra pessoa com o link do site. A pessoa faz a reversão da criptografia e pode ler a mensagem.
+O site foi feito com HTML, CSS, Javascript e um sistema de criptografia.
